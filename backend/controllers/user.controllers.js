@@ -1,11 +1,18 @@
 const userModel = require("../models/user.model");
+const bcrypt = require("bcrypt");
 
 // create admin user
 async function createUser(req, resp) {
   try {
-    const data = req.body;
+    const { username, password, email } = req.body;
 
-    const createdUser = await userModel.create(data);
+    const hashPassword = await bcrypt.hash(password, 12);
+
+    const createdUser = await userModel.create({
+      username,
+      email,
+      password: hashPassword,
+    });
 
     if (!createdUser) {
       return resp.status(500).json({ message: "failed to create user" });
