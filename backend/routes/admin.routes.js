@@ -5,9 +5,10 @@ const {
   updateRecord,
   deleteRecord,
 } = require("../controllers/admin.controllers");
+const { verifyJwt } = require("../middleweres/authMiddlewere");
 
-router.post("/admin/create", createRecord);
-router.patch("/admin/update/:id", updateRecord);
-router.delete("/admin/delete/:id", deleteRecord);
+router.post("/admin/record/create", verifyJwt, createRecord);
+router.patch("/admin/record/update/:id", verifyJwt, updateRecord);
+router.delete("/admin/record/delete/:id", verifyJwt, deleteRecord);
 
 module.exports = router;

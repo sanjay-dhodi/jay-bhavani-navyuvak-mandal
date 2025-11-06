@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 // create admin user
 async function createUser(req, resp) {
   try {
+    c;
+
     const { username, password, email } = req.body;
 
     const hashPassword = await bcrypt.hash(password, 12);

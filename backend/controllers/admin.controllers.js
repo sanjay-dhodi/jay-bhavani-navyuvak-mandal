@@ -2,6 +2,8 @@ const collectionModel = require("../models/collection.model");
 
 // cretae record
 async function createRecord(req, resp) {
+  console.log(req.user);
+
   try {
     const inputData = req.body;
     const createdRecord = await collectionModel.create(inputData);
