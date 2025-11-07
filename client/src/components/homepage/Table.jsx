@@ -53,7 +53,7 @@ export default function Table({ data }) {
                   </td>
                 ))}
                 <td>
-                  <Link to={`/admin/editmember/${entry._id}`}>
+                  <Link to={`/editmember/${entry._id}`}>
                     <button className="btn btn-warning btn-sm">update</button>
                   </Link>
                 </td>

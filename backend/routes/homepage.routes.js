@@ -6,6 +6,6 @@ const {
 } = require("../controllers/homepage.controllers");
 
 router.get("/allrecord", getAllRecord);
-router.get("/singlerecord", getSingleRecord);
+router.get("/singlerecord/:id", getSingleRecord);
 
 module.exports = router;
