@@ -1,27 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { getAllRecord } from "../../services/recordService";
+import { Link } from "react-router";
 
 export default function Table({ data }) {
+  const months = [
+    "jan",
+    "fab",
+    "mar",
+    "apr",
+    "may",
+    "jun",
+    "jul",
+    "aug",
+    "sep",
+    "oct",
+    "nov",
+    "dec",
+  ];
+
   return (
     <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 ">
       <table className="table">
         {/* head */}
-        <thead>
+        <thead className="bg-amber-200">
           <tr>
             <th></th>
             <th>Name</th>
 
-            <th>Jan</th>
-            <th>fab</th>
-            <th>mar</th>
-            <th>apr</th>
-            <th>may</th>
-            <th>Jun</th>
-            <th>Jul</th>
-            <th>aug</th>
-            <th>sep</th>
-            <th>oct</th>
-            <th>nov</th>
-            <th>dec</th>
+            {months.map((value, i) => (
+              <th key={i}>{value.toUpperCase()}</th>
+            ))}
+
+            <th>action</th>
           </tr>
         </thead>
         <tbody>
@@ -30,22 +40,23 @@ export default function Table({ data }) {
           {data.map((entry, i) => {
             return (
               <tr key={i}>
-                <th>1</th>
+                <th>{i + 1}</th>
                 <td>{entry.name}</td>
-                {Object.entries(entry.money).map(([month, value]) => {
-                  // return <td key={month}>{value ? "✅" : "❌"}</td>;
-                  return (
-                    <td key={month}>
-                      {value ? (
-                        <span className="badge badge-sm badge-success">
-                          100
-                        </span>
-                      ) : (
-                        "❌"
-                      )}
-                    </td>
-                  );
-                })}
+
+                {months.map((value) => (
+                  <td key={value}>
+                    {entry?.month?.[value] ? (
+                      <span className="badge badge-sm badge-success">100</span>
+                    ) : (
+                      "❌"
+                    )}
+                  </td>
+                ))}
+                <td>
+                  <Link to={`/admin/editmember/${entry._id}`}>
+                    <button className="btn btn-warning btn-sm">update</button>
+                  </Link>
+                </td>
               </tr>
             );
           })}

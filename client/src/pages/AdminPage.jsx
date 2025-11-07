@@ -1,71 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EntryForm from "../components/EntryForm";
 import Table from "../components/homepage/Table";
+import { getAllRecord } from "../services/recordService";
 
 export default function AdminPage() {
-  const data = [
-    {
-      name: "sanjay dhodi",
-      money: {
-        jan: true,
-        fab: true,
-        march: false,
-        april: false,
-        may: false,
-        june: false,
-        july: true,
-        august: true,
-        september: true,
-        october: false,
-        november: false,
-        december: false,
-      },
-    },
+  const [list, setList] = useState([]);
+  const [originalList, setOriginalList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    {
-      name: "sana dhodi",
-      money: {
-        jan: true,
-        fab: true,
-        march: false,
-        april: false,
-        may: false,
-        june: false,
-        july: true,
-        august: true,
-        september: true,
-        october: false,
-        november: false,
-        december: false,
-      },
-    },
-    {
-      name: "Ketan dhodi",
-      money: {
-        jan: true,
-        fab: true,
-        march: false,
-        april: false,
-        may: false,
-        june: false,
-        july: true,
-        august: true,
-        september: true,
-        october: false,
-        november: false,
-        december: false,
-      },
-    },
-  ];
+  async function fetchAllRecord() {
+    try {
+      const data = await getAllRecord();
+      setList(data);
+      setOriginalList(data);
+    } catch (error) {
+      console.log("error".error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
 
-  const [list, setList] = useState(data);
+  useEffect(() => {
+    fetchAllRecord();
+  }, []);
 
   function handleChange(e) {
-    const inputeValue = e.target.value.toLocaleLowerCase();
+    const inputeValue = e.target.value.toLocaleLowerCase().trim();
 
-    const filteredData = data.filter((user) => {
-      return user.name.toLocaleLowerCase().includes(inputeValue);
+    inputeValue === "" && setList(originalList);
+
+    const filteredData = originalList.filter((user) => {
+      return user.name.toLowerCase().includes(inputeValue);
     });
+    console.log(originalList);
 
     setList(filteredData);
   }
