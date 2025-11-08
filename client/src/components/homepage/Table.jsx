@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { getAllRecord } from "../../services/recordService";
 import { Link } from "react-router";
 
-export default function Table({ data }) {
+export default function Table({ data, isAdminTable }) {
   const months = [
     "jan",
     "fab",
@@ -31,7 +31,7 @@ export default function Table({ data }) {
               <th key={i}>{value.toUpperCase()}</th>
             ))}
 
-            <th>action</th>
+            {isAdminTable && <th>action</th>}
           </tr>
         </thead>
         <tbody>
@@ -52,11 +52,15 @@ export default function Table({ data }) {
                     )}
                   </td>
                 ))}
-                <td>
-                  <Link to={`/editmember/${entry._id}`}>
-                    <button className="btn btn-warning btn-sm">update</button>
-                  </Link>
-                </td>
+
+                {isAdminTable && (
+                  <td>
+                    {" "}
+                    <Link to={`editmember/${entry._id}`}>
+                      <button className="btn btn-warning btn-sm">update</button>
+                    </Link>
+                  </td>
+                )}
               </tr>
             );
           })}

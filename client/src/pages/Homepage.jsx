@@ -40,7 +40,7 @@ export default function Homepage() {
   return (
     <>
       <EntryForm onChange={handleChange} />
-      {loading ? <h1>loading</h1> : <Table data={list} />}
+      {loading ? <h1>loading</h1> : <Table data={list} isAdminTable={false} />}
     </>
   );
 }

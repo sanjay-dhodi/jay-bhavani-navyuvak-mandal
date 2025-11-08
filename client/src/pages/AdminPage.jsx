@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import EntryForm from "../components/EntryForm";
 import Table from "../components/homepage/Table";
 import { getAllRecord } from "../services/recordService";
+import { Link } from "react-router";
 
 export default function AdminPage() {
   const [list, setList] = useState([]);
@@ -40,7 +41,10 @@ export default function AdminPage() {
   return (
     <>
       <EntryForm onChange={handleChange} />
-      <Table data={list} />
+      <Link to="createmember">
+        <button className="btn btn-warning">ADD NEW MEMBER</button>
+      </Link>
+      <Table data={list} isAdminTable={true} />
     </>
   );
 }
