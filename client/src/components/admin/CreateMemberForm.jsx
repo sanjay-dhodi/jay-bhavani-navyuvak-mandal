@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { createRecord } from "../../services/recordService";
+import { createRecord, updateRecord } from "../../services/recordService";
 import { useNavigate } from "react-router";
 
 export default function CreateMemberForm({ formTitle, mode, data }) {
@@ -19,12 +19,14 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
   ];
 
   const [inputValue, setInputValue] = useState("");
+  const [prevMonthData, setPrevMonthData] = useState({});
   const [monthArray, setMonthArray] = useState(months);
   const [selectedMonth, setSelecetedMonth] = useState([]);
 
   useEffect(() => {
     if (mode === "update") {
       previousDataForUpdate(data);
+      setPrevMonthData(data.month);
     }
   }, [data]);
 
@@ -81,35 +83,53 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
     }
   }
 
+  async function editRecord(id, payload) {
+    try {
+      const response = await updateRecord(id, payload);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        return error.response.data;
+      }
+    }
+  }
+
   // for a sumbit form
   async function handleSubmit(e) {
     e.preventDefault();
 
     // convert array into object for backend
-    const monthsForCreate = Object.fromEntries(
+    const currentMonthData = Object.fromEntries(
       months.map((key) => {
         return [key, selectedMonth.includes(key)];
       })
     );
 
-    const monthsForUpdate = Object.fromEntries(
-      selectedMonth.map((key) => {
-        return [key, true];
-      })
-    );
+    let chnagedMonthData = {};
+    for (let key of months) {
+      if (currentMonthData[key] !== prevMonthData[key]) {
+        chnagedMonthData[key] = currentMonthData[key];
+      }
+    }
 
     const payload = {
       name: inputValue,
-      month: mode === "update" ? monthsForUpdate : monthsForCreate,
+      month: mode === "update" ? chnagedMonthData : currentMonthData,
     };
 
-    const d = await createNewMember(payload);
-    if (d.message) {
-      alert(d.message);
+    let response = "";
+
+    if (mode == "update") {
+      response = await editRecord(data._id, payload);
+    } else {
+      response = await createNewMember(payload);
+      setInputValue("");
+      setSelecetedMonth([]);
     }
 
-    setInputValue("");
-    setSelecetedMonth([]);
+    if (response) {
+      console.log(response);
+    }
   }
 
   return (

@@ -13,3 +13,8 @@ export const createRecord = async (payload) => {
   const response = await api.post("/admin/record/create", payload);
   return response.data;
 };
+
+export const updateRecord = async (id, payload) => {
+  const response = await api.patch(`/admin/record/update/${id}`, payload);
+  return response.data;
+};
