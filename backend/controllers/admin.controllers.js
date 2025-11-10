@@ -24,6 +24,7 @@ async function createRecord(req, resp) {
 async function updateRecord(req, resp) {
   try {
     const { id } = req.params;
+
     const monthObj = req.body.month;
 
     const dataForUpdate = {};
