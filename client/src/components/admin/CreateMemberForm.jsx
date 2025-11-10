@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { createRecord } from "../../services/recordService";
+import { useNavigate } from "react-router";
 
 export default function CreateMemberForm({ formTitle, mode, data }) {
   const months = [
@@ -21,23 +23,28 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
   const [selectedMonth, setSelecetedMonth] = useState([]);
 
   useEffect(() => {
-    // change object to array
+    if (mode === "update") {
+      previousDataForUpdate(data);
+    }
+  }, [data]);
+
+  // function for set data value to fileds
+  function previousDataForUpdate(data) {
+    setInputValue(data.name);
     const monthFromData = Object.entries(data.month);
 
-    // filter only selected month in array
     const allreadySelectedMonth = monthFromData
       .filter(([key, value]) => value === true)
       .map(([key]) => key);
 
     setSelecetedMonth(allreadySelectedMonth);
 
-    // filter not seleced month in array
     const remainmingMonth = monthFromData
       .filter(([key, value]) => value !== true)
       .map(([key]) => key);
 
     setMonthArray(remainmingMonth);
-  }, [data]);
+  }
 
   // handle input box
   function handleInputChange(e) {
@@ -63,8 +70,19 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
     setSelecetedMonth(filterMonth);
   }
 
+  async function createNewMember(payload) {
+    try {
+      const response = await createRecord(payload);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        return error.response.data;
+      }
+    }
+  }
+
   // for a sumbit form
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     // convert array into object for backend
@@ -85,7 +103,13 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
       month: mode === "update" ? monthsForUpdate : monthsForCreate,
     };
 
-    console.log(payload);
+    const d = await createNewMember(payload);
+    if (d.message) {
+      alert(d.message);
+    }
+
+    setInputValue("");
+    setSelecetedMonth([]);
   }
 
   return (
@@ -99,8 +123,6 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
             <input
               type="text"
               name="name"
-              // value={mode == "create" ? "" : data.name}
-              // value={"data"}
               value={inputValue}
               onChange={(e) => {
                 handleInputChange(e);

@@ -2,8 +2,6 @@ const collectionModel = require("../models/collection.model");
 
 // cretae record
 async function createRecord(req, resp) {
-  console.log(req.user);
-
   try {
     const inputData = req.body;
     const createdRecord = await collectionModel.create(inputData);
@@ -14,9 +12,11 @@ async function createRecord(req, resp) {
 
     return resp.status(201).json({ message: "member created succefully" });
   } catch (error) {
-    resp
-      .status(500)
-      .json({ message: "internal server error", error: error.message });
+    if (error.code === 11000) {
+      return resp.status(400).json({ message: "Name already exists" });
+    }
+
+    resp.status(500).json({ message: "internal server error" });
   }
 }
 

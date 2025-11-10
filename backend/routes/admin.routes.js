@@ -7,7 +7,7 @@ const {
 } = require("../controllers/admin.controllers");
 const { verifyJwt } = require("../middleweres/authMiddlewere");
 
-router.post("/admin/record/create", verifyJwt, createRecord);
+router.post("/admin/record/create", createRecord);
 router.patch("/admin/record/update/:id", verifyJwt, updateRecord);
 router.delete("/admin/record/delete/:id", verifyJwt, deleteRecord);
 
