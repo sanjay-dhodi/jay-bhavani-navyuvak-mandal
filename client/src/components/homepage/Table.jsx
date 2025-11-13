@@ -19,13 +19,15 @@ export default function Table({ data, isAdminTable }) {
   ];
 
   return (
-    <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 ">
-      <table className="table">
+    <div className=" overflow-x-auto w-full max-w-max rounded-box p-5 bg-white">
+      <table className="table border border-gray-200 aline-center ">
         {/* head */}
         <thead className="bg-amber-200">
           <tr>
             <th></th>
-            <th>Name</th>
+            <th>
+              <h1>Name</h1>
+            </th>
 
             {months.map((value, i) => (
               <th key={i}>{value.toUpperCase()}</th>
@@ -39,16 +41,18 @@ export default function Table({ data, isAdminTable }) {
 
           {data.map((entry, i) => {
             return (
-              <tr key={i}>
-                <th>{i + 1}</th>
-                <td>{entry.name}</td>
+              <tr key={i} className="">
+                <td>{i + 1}</td>
+                <td className="font-semibold border border-gray-200">
+                  {entry.name}
+                </td>
 
                 {months.map((value) => (
-                  <td key={value}>
+                  <td key={value} className="border border-gray-200">
                     {entry?.month?.[value] ? (
                       <span className="badge badge-sm badge-success">100</span>
                     ) : (
-                      "❌"
+                      <span> ❌ </span>
                     )}
                   </td>
                 ))}

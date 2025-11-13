@@ -2,6 +2,12 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/user.model");
 
+// verify and set frontend isAuth
+
+async function isAuth(req, resp) {
+  resp.status(200).json({ valid: true });
+}
+
 // login
 async function login(req, resp) {
   try {
@@ -56,4 +62,4 @@ async function logout(req, resp) {
   }
 }
 
-module.exports = { login, logout };
+module.exports = { login, logout, isAuth };

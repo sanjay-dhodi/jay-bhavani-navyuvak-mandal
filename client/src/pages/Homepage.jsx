@@ -25,15 +25,16 @@ export default function Homepage() {
     fetchAllRecord();
   }, []);
 
+ 
+
   function handleChange(e) {
     const inputeValue = e.target.value.toLocaleLowerCase().trim();
 
     inputeValue === "" && setList(originalList);
 
-    const filteredData = list.filter((user) => {
-      return user.name.toLocaleLowerCase().includes(inputeValue);
+    const filteredData = originalList.filter((user) => {
+      return user.name.toLowerCase().includes(inputeValue);
     });
-    console.log(originalList);
 
     setList(filteredData);
   }

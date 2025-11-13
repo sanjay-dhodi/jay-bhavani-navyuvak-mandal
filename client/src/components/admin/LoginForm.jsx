@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 
-export default function LoginForm() {
+export default function LoginForm({ onsubmit, onchange, formdata, error }) {
   return (
     <div className="card bg-white w-1/4 border border-gray-200">
       <div className="card-body">
-        <form className="flex flex-col gap-2">
+        <form className="flex flex-col gap-2" onSubmit={onsubmit}>
+          {error && (
+            <h1 className="bg-red-200 p-2 text-red-700 rounded border-b-2 ">
+              {error}
+            </h1>
+          )}
+
           <fieldset className="fieldset ">
             <legend className="fieldset-legend">Username</legend>
             <input
@@ -12,8 +18,9 @@ export default function LoginForm() {
               name="username"
               className="input w-full"
               placeholder="Type here"
+              onChange={onchange}
+              value={formdata.username}
             />
-            <p className="label">Optional</p>
           </fieldset>
           <fieldset className="fieldset">
             <legend className="fieldset-legend">Password</legend>
@@ -22,8 +29,9 @@ export default function LoginForm() {
               name="password"
               className="input w-full"
               placeholder="Type here"
+              onChange={onchange}
+              value={formdata.password}
             />
-            <p className="label">Optional</p>
           </fieldset>
           <button type="submit" className="btn btn-success w-full">
             Login

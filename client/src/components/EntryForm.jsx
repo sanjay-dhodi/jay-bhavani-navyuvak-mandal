@@ -7,12 +7,12 @@ export default function EntryForm({ onChange }) {
         <div className="join">
           <input
             type="text "
+            placeholder="search by name"
             onChange={(e) => {
               onChange(e);
             }}
-            className="input join-item"
+            className="input join-item input-lg"
           />
-          <button className="join-item btn btn-success"> search </button>
         </div>
       </form>
     </div>

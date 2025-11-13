@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { createRecord, updateRecord } from "../../services/recordService";
-import { useNavigate } from "react-router";
 
 export default function CreateMemberForm({ formTitle, mode, data }) {
   const months = [
@@ -22,40 +21,50 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
   const [prevMonthData, setPrevMonthData] = useState({});
   const [monthArray, setMonthArray] = useState(months);
   const [selectedMonth, setSelecetedMonth] = useState([]);
+  const [isError, setIsError] = useState("");
+  const [success, setIsSuccess] = useState("");
 
   useEffect(() => {
     if (mode === "update") {
       previousDataForUpdate(data);
       setPrevMonthData(data.month);
+      // old data store for compare
     }
   }, [data]);
 
   // function for set data value to fileds
   function previousDataForUpdate(data) {
     setInputValue(data.name);
+
+    // month object to array
     const monthFromData = Object.entries(data.month);
 
     const allreadySelectedMonth = monthFromData
       .filter(([key, value]) => value === true)
+      // return only key(month) array to setSelected Array
       .map(([key]) => key);
 
     setSelecetedMonth(allreadySelectedMonth);
 
-    const remainmingMonth = monthFromData
+    const notSelectedMonth = monthFromData
       .filter(([key, value]) => value !== true)
       .map(([key]) => key);
 
-    setMonthArray(remainmingMonth);
+    setMonthArray(notSelectedMonth);
   }
 
   // handle input box
   function handleInputChange(e) {
+    setIsError("");
+    setIsSuccess("");
     setInputValue(e.target.value);
   }
 
   // for a selectmonth feature
   function handleSelectMonth(e) {
     e.preventDefault();
+    setIsError("");
+    setIsSuccess("");
     setSelecetedMonth((prev) => [...prev, e.target.value]);
     const filterMonth = monthArray.filter((month) => month !== e.target.value);
     setMonthArray(filterMonth);
@@ -64,6 +73,8 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
   // for a deselect month
   function handleDeSelectMonth(e) {
     e.preventDefault();
+    setIsError("");
+    setIsSuccess("");
     setMonthArray((prev) => [...prev, e.target.value]);
     const filterMonth = selectedMonth.filter(
       (month) => month !== e.target.value
@@ -71,6 +82,8 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
 
     setSelecetedMonth(filterMonth);
   }
+
+  // api functions for create and update ################################################
 
   async function createNewMember(payload) {
     try {
@@ -94,9 +107,20 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
     }
   }
 
-  // for a sumbit form
+  //  Sumbit form ############################################################################
+
   async function handleSubmit(e) {
     e.preventDefault();
+
+    if (!inputValue.trim()) {
+      setIsError("name required");
+      return;
+    }
+
+    if (selectedMonth.length === 0) {
+      setIsError("At least one month need selected");
+      return;
+    }
 
     // convert array into object for backend
     const currentMonthData = Object.fromEntries(
@@ -105,7 +129,9 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
       })
     );
 
+    //  new modified object for send object to backend
     let chnagedMonthData = {};
+
     for (let key of months) {
       if (currentMonthData[key] !== prevMonthData[key]) {
         chnagedMonthData[key] = currentMonthData[key];
@@ -121,14 +147,13 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
 
     if (mode == "update") {
       response = await editRecord(data._id, payload);
+      setIsSuccess("update successfull");
     } else {
       response = await createNewMember(payload);
+
+      setIsSuccess("Member created Successfully");
       setInputValue("");
       setSelecetedMonth([]);
-    }
-
-    if (response) {
-      console.log(response);
     }
   }
 
@@ -138,6 +163,13 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
 
       <div className="card-body">
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+          {isError && (
+            <h1 className="bg-red-300 p-2 text-red-600">{isError}</h1>
+          )}
+          {success && (
+            <h1 className="bg-green-300 p-2 text-green-600">{success}</h1>
+          )}
+
           <fieldset className="fieldset">
             <legend className="fieldset-legend">Enter Name</legend>
             <input
@@ -155,7 +187,7 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
 
           <div className="card">
             <div className="card-title">Months</div>
-            <div className="card-body flex flex-row gap-2 border border-gray-200 grid grid-cols-4">
+            <div className="card-body flex flex-row gap-2 border border-gray-200 grid grid-cols-4 ">
               {monthArray.map((month) => (
                 <button
                   key={month}
