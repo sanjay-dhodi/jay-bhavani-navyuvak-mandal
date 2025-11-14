@@ -24,6 +24,11 @@ A full-stack MERN application for tracking member payments with monthly manageme
 - **Frontend:** https://jaybhavani.netlify.app
 - **Backend API:** https://jay-bhavani-navyuvak-mandal.onrender.com
 
+- **test user**
+- username = test
+- 
+- password  = test@123456 
+
 ## 📚 API Endpoints
 
 ## Authentication
