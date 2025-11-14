@@ -26,15 +26,15 @@ A full-stack MERN application for tracking member payments with monthly manageme
 
 ## 📚 API Endpoints
 
-Authentication
+## Authentication
 
 POST /api/admin/login - Login user
 
 POST /api/admin/logout - Logout user
 
-Members
+## Records
 
-GET /api/allrecord - Get all members
+GET /api/allrecord - Get all records
 
 GET /api/singlerecord/:id - Get Single Record
 
