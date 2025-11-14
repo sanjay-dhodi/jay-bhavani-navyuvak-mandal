@@ -1,3 +1,7 @@
+## Note
+
+this is live in progress app as i learn i add features in this project 
+
 # Mandal Member Payment Tracker
 
 A full-stack MERN application for tracking member payments with monthly management system.
