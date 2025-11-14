@@ -52,10 +52,14 @@ async function login(req, resp) {
 // logout
 
 async function logout(req, resp) {
+  const isInProduction = process.env.NODE_ENV === "production";
   try {
     resp.clearCookie("accesstoken", {
       httpOnly: true,
-      secure: false,
+      secure: isInProduction,
+      sameSite: isInProduction ? "none" : "lax",
+      // sameSite: "lax",
+      maxAge: 15 * 60 * 1000,
     });
 
     resp.status(200).json({ message: "logout successfull" });
