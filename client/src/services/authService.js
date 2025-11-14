@@ -10,7 +10,7 @@ export const logoutService = async () => {
   return response;
 };
 
-export const verifyAuthService = () => {
-  const response = api.get("/admin/verify");
+export const verifyAuthService = async () => {
+  const response = await api.get("/admin/verify");
   return response;
 };

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { createRecord, updateRecord } from "../../services/recordService";
 
+import { Link, useNavigate } from "react-router";
+
 export default function CreateMemberForm({ formTitle, mode, data }) {
+  const navigate = useNavigate();
   const months = [
     "jan",
     "fab",
@@ -88,10 +91,12 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
   async function createNewMember(payload) {
     try {
       const response = await createRecord(payload);
-      return response;
+      if (response) {
+        return true;
+      }
     } catch (error) {
       if (error.response) {
-        return error.response.data;
+        return false;
       }
     }
   }
@@ -99,10 +104,13 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
   async function editRecord(id, payload) {
     try {
       const response = await updateRecord(id, payload);
-      return response;
+      if (response) {
+        return true;
+      }
     } catch (error) {
       if (error.response) {
-        return error.response.data;
+        // console.log(error.response);
+        return false;
       }
     }
   }
@@ -147,13 +155,28 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
 
     if (mode == "update") {
       response = await editRecord(data._id, payload);
-      setIsSuccess("update successfull");
+
+      if (response) {
+        setIsError("");
+        setIsSuccess("update successfull");
+        navigate("/admin");
+      } else {
+        setIsSuccess("");
+        setIsError("at least one change in month is required");
+      }
     } else {
       response = await createNewMember(payload);
-
-      setIsSuccess("Member created Successfully");
+      if (response) {
+        setIsError("");
+        setIsSuccess("Member created successfully");
+        navigate("/admin");
+      } else {
+        setIsSuccess("");
+        setIsError("name already exist or internal server error");
+      }
       setInputValue("");
       setSelecetedMonth([]);
+      setMonthArray(months);
     }
   }
 
@@ -220,6 +243,9 @@ export default function CreateMemberForm({ formTitle, mode, data }) {
           <button type="submit" className="btn btn-success w-full">
             {mode === "create" ? "ADD MEMBER" : "UPDATE MEMBER"}
           </button>
+          <Link to="/admin">
+            <button className="btn  w-full">Go Back</button>
+          </Link>
         </form>
       </div>
     </div>

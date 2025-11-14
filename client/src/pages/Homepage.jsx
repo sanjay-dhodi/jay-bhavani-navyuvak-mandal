@@ -3,6 +3,7 @@ import Table from "../components/homepage/Table";
 import EntryForm from "../components/EntryForm";
 import { useState } from "react";
 import { getAllRecord } from "../services/recordService";
+import { Link } from "react-router";
 
 export default function Homepage() {
   const [list, setList] = useState([]);
@@ -25,8 +26,6 @@ export default function Homepage() {
     fetchAllRecord();
   }, []);
 
- 
-
   function handleChange(e) {
     const inputeValue = e.target.value.toLocaleLowerCase().trim();
 
@@ -38,9 +37,18 @@ export default function Homepage() {
 
     setList(filteredData);
   }
+
+  if (list.length === 0)
+    return <h1 className="bg-white p-5">No Records to show</h1>;
+
   return (
     <>
-      <EntryForm onChange={handleChange} />
+      <div className=" w-1/2 flex items-center justify-between">
+        <EntryForm onChange={handleChange} />
+        <Link to="/login">
+          <button className="btn btn-secondary ml-3 ">login</button>
+        </Link>
+      </div>
       {loading ? <h1>loading</h1> : <Table data={list} isAdminTable={false} />}
     </>
   );

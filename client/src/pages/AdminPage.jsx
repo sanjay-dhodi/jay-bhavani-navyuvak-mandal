@@ -10,15 +10,13 @@ export default function AdminPage() {
   const [originalList, setOriginalList] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const { logout } = useContext(AuthContext);
-
   async function fetchAllRecord() {
     try {
       const data = await getAllRecord();
       setList(data);
       setOriginalList(data);
     } catch (error) {
-      console.log("error".error.message);
+      // console.log("error".error.message);
     } finally {
       setLoading(false);
     }
@@ -40,25 +38,14 @@ export default function AdminPage() {
     setList(filteredData);
   }
 
-  function handleLogout() {
-    logout();
-  }
+  if (loading) return <h1>loading...</h1>;
 
-  // if (loading) return <h1>loading</h1>;
+  if (list.length === 0)
+    return <h1 className="bg-white p-5">No Records to show</h1>;
 
   return (
     <>
       <EntryForm onChange={handleChange} />
-      <div>
-        <Link to="createmember">
-          <button className="btn btn-warning">ADD NEW MEMBER</button>
-        </Link>
-
-        <button className="btn btn-secondary ml-3" onClick={handleLogout}>
-          logout
-        </button>
-      </div>
-
       {loading ? <h1>loading</h1> : <Table data={list} isAdminTable={true} />}
     </>
   );
