@@ -31,10 +31,14 @@ async function login(req, resp) {
       }
     );
 
+    const isInProduction = process.env.NODE_ENV === "production";
+
     resp.cookie("accesstoken", token, {
       httpOnly: true,
-      secure: false,
-      maxAge: 1000 * 60 * 15,
+      secure: isInProduction,
+      sameSite: isInProduction ? "none" : "lax",
+      // sameSite: "lax",
+      maxAge: 15 * 60 * 1000,
     });
 
     resp.status(200).json({ message: "login successfull" });

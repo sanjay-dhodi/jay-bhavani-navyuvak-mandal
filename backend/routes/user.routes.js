@@ -6,10 +6,11 @@ const {
   deleteUser,
   updateUser,
 } = require("../controllers/user.controllers");
+const { verifyJwt } = require("../middleweres/authMiddlewere");
 
-router.get("/admin/user/getuser", fetchAllUser);
-router.post("/admin/user/create", createUser);
-router.delete("/admin/user/delete/:id", deleteUser);
-router.put("/admin/user/update/:id", updateUser);
+// router.get("/admin/user/getuser", verifyJwt, fetchAllUser);
+// router.post("/admin/user/create", verifyJwt, createUser);
+// router.delete("/admin/user/delete/:id", verifyJwt, deleteUser);
+// router.put("/admin/user/update/:id", verifyJwt, updateUser);
 
-module.exports = router;
+// module.exports = router;

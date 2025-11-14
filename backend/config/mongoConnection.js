@@ -6,4 +6,4 @@ mongoose
   .then(() => {
     console.log("db connected");
   })
-  .catch((e) => console.log(e));
+  .catch((e) => console.log("db problem"));

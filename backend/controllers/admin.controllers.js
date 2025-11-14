@@ -3,8 +3,23 @@ const collectionModel = require("../models/collection.model");
 // cretae record
 async function createRecord(req, resp) {
   try {
-    const inputData = req.body;
-    const createdRecord = await collectionModel.create(inputData);
+    const { name, month } = req.body;
+
+    if (!name || !name.trim()) {
+      return resp.status(400).json({ message: "name required" });
+    }
+
+    if (name.trim().length < 2) {
+      return resp
+        .status(400)
+        .json({ message: "name must be at least 2 characters" });
+    }
+
+    if (!month || !Object.values(month).some((v) => v === true)) {
+      return resp.status(400).json({ message: "month required" });
+    }
+
+    const createdRecord = await collectionModel.create({ name, month });
 
     if (!createdRecord) {
       return resp.status(500).json({ message: "failed to create member" });
@@ -24,8 +39,22 @@ async function createRecord(req, resp) {
 async function updateRecord(req, resp) {
   try {
     const { id } = req.params;
-
+    const name = req.body.name;
     const monthObj = req.body.month;
+
+    if (!name || !name.trim()) {
+      return resp.status(400).json({ message: "name required" });
+    }
+
+    if (name.trim().length < 2) {
+      return resp
+        .status(400)
+        .json({ message: "name must be at least 2 characters" });
+    }
+
+    if (!monthObj || Object.keys(monthObj).length === 0) {
+      return resp.status(400).json({ message: "month is required" });
+    }
 
     const dataForUpdate = {};
 
