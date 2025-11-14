@@ -38,6 +38,8 @@ export default function Homepage() {
     setList(filteredData);
   }
 
+  if (loading) return <h1>loading....</h1>;
+
   if (list.length === 0)
     return <h1 className="bg-white p-5">No Records to show</h1>;
 
