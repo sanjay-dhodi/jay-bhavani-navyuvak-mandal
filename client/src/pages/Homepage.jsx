@@ -51,7 +51,17 @@ export default function Homepage() {
           <button className="btn btn-secondary ml-3 ">login</button>
         </Link>
       </div>
-      {loading ? <h1>loading</h1> : <Table data={list} isAdminTable={false} />}
+      {loading ? (
+        <div>
+          <h1 className="text-xl">loading......</h1>
+          <p className="text-lg">
+            please wait , first api load takes time bcoz we are on the free plan
+            ..
+          </p>
+        </div>
+      ) : (
+        <Table data={list} isAdminTable={false} />
+      )}
     </>
   );
 }
