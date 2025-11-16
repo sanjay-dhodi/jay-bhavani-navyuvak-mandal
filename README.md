@@ -1,6 +1,6 @@
 ## Note
 
-this is live in progress app as i learn i add features in this project 
+This is live in progress app as i learn i add features in this project 
 
 # Mandal Member Payment Tracker
 
