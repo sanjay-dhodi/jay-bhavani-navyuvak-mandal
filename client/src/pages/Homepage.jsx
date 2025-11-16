@@ -38,7 +38,16 @@ export default function Homepage() {
     setList(filteredData);
   }
 
-  if (loading) return <h1>loading....</h1>;
+  if (loading)
+    return (
+      <div>
+        <h1 className="text-xl">loading......</h1>
+        <p className="text-lg">
+          please wait , first api load takes time bcoz we are on the free plan
+          ..
+        </p>
+      </div>
+    );
 
   if (list.length === 0)
     return <h1 className="bg-white p-5">No Records to show</h1>;
@@ -54,10 +63,6 @@ export default function Homepage() {
       {loading ? (
         <div>
           <h1 className="text-xl">loading......</h1>
-          <p className="text-lg">
-            please wait , first api load takes time bcoz we are on the free plan
-            ..
-          </p>
         </div>
       ) : (
         <Table data={list} isAdminTable={false} />
