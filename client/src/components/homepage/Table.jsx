@@ -18,6 +18,12 @@ export default function Table({ data, isAdminTable }) {
     "dec",
   ];
 
+  const currentMonth = new Date()
+    .toLocaleDateString("default", {
+      month: "short",
+    })
+    .toLowerCase();
+
   return (
     <div className=" overflow-x-auto w-full max-w-max rounded-box p-5 bg-white">
       <table className="table border border-gray-200 aline-center ">
@@ -29,9 +35,11 @@ export default function Table({ data, isAdminTable }) {
               <h1>Name</h1>
             </th>
 
-            {months.map((value, i) => (
+            {/* {months.map((value, i) => (
               <th key={i}>{value.toUpperCase()}</th>
-            ))}
+            ))} */}
+
+            <th> {currentMonth.toUpperCase()}</th>
 
             {isAdminTable && <th>action</th>}
           </tr>
@@ -40,6 +48,7 @@ export default function Table({ data, isAdminTable }) {
           {/* row 1 */}
 
           {data.map((entry, i) => {
+           
             return (
               <tr key={i} className="">
                 <td>{i + 1}</td>
@@ -47,7 +56,7 @@ export default function Table({ data, isAdminTable }) {
                   {entry.name}
                 </td>
 
-                {months.map((value) => (
+                {/* {months.map((value) => (
                   <td key={value} className="border border-gray-200">
                     {entry?.month?.[value] ? (
                       <span className="badge badge-sm badge-success">100</span>
@@ -55,11 +64,19 @@ export default function Table({ data, isAdminTable }) {
                       <span> ❌ </span>
                     )}
                   </td>
-                ))}
+                ))} */}
+
+                <td>
+                  {entry.month[currentMonth] ? (
+                    <span className="badge badge-sm badge-success">100</span>
+                  ) : (
+                    <span> ❌ </span>
+                  )}
+                </td>
 
                 {isAdminTable && (
                   <td>
-                    {" "}
+                    
                     <Link to={`editmember/${entry._id}`}>
                       <button className="btn btn-warning btn-sm">update</button>
                     </Link>

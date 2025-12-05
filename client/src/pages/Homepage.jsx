@@ -49,9 +49,6 @@ export default function Homepage() {
       </div>
     );
 
-  if (list.length === 0)
-    return <h1 className="bg-white p-5">No Records to show</h1>;
-
   return (
     <>
       <div className=" w-1/2 flex items-center justify-between">
@@ -60,10 +57,13 @@ export default function Homepage() {
           <button className="btn btn-secondary ml-3 ">login</button>
         </Link>
       </div>
+
       {loading ? (
         <div>
           <h1 className="text-xl">loading......</h1>
         </div>
+      ) : list.length === 0 ? (
+        <h1 className="bg-white p-5">No Data Found</h1>
       ) : (
         <Table data={list} isAdminTable={false} />
       )}

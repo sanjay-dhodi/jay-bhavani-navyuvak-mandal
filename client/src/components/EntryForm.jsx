@@ -3,7 +3,7 @@ import React from "react";
 export default function EntryForm({ onChange }) {
   return (
     <div>
-      <form>
+      <form className="">
         <div className="join">
           <input
             type="text "
@@ -11,7 +11,7 @@ export default function EntryForm({ onChange }) {
             onChange={(e) => {
               onChange(e);
             }}
-            className="input join-item input-lg"
+            className="input join-item input-sm"
           />
         </div>
       </form>
