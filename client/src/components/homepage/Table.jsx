@@ -4,6 +4,11 @@ import { Link } from "react-router";
 
 export default function Table({ data, isAdminTable }) {
   const months = [
+    
+    "sep",
+    "oct",
+    "nov",
+    "dec",
     "jan",
     "fab",
     "mar",
@@ -12,17 +17,8 @@ export default function Table({ data, isAdminTable }) {
     "jun",
     "jul",
     "aug",
-    "sep",
-    "oct",
-    "nov",
-    "dec",
   ];
 
-  const currentMonth = new Date()
-    .toLocaleDateString("default", {
-      month: "short",
-    })
-    .toLowerCase();
 
   return (
     <div className=" overflow-x-auto w-full max-w-max rounded-box p-5 bg-white">
