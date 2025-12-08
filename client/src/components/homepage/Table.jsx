@@ -18,12 +18,7 @@ export default function Table({ data, isAdminTable }) {
     "dec",
   ];
 
-  const currentMonth = new Date()
-    .toLocaleDateString("default", {
-      month: "short",
-    })
-    .toLowerCase();
-
+ 
   return (
     <div className=" overflow-x-auto w-full max-w-max rounded-box p-5 bg-white">
       <table className="table border border-gray-200 aline-center ">
@@ -35,11 +30,11 @@ export default function Table({ data, isAdminTable }) {
               <h1>Name</h1>
             </th>
 
-            {/* {months.map((value, i) => (
+            {months.map((value, i) => (
               <th key={i}>{value.toUpperCase()}</th>
-            ))} */}
+            ))}
 
-            <th> {currentMonth.toUpperCase()}</th>
+          
 
             {isAdminTable && <th>action</th>}
           </tr>
