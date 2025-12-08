@@ -4,7 +4,6 @@ import { Link } from "react-router";
 
 export default function Table({ data, isAdminTable }) {
   const months = [
-    
     "sep",
     "oct",
     "nov",
@@ -19,7 +18,6 @@ export default function Table({ data, isAdminTable }) {
     "aug",
   ];
 
-
   return (
     <div className=" overflow-x-auto w-full max-w-max rounded-box p-5 bg-white">
       <table className="table border border-gray-200 aline-center ">
@@ -33,9 +31,7 @@ export default function Table({ data, isAdminTable }) {
 
             {months.map((value, i) => (
               <th key={i}>{value.toUpperCase()}</th>
-            ))} 
-
-     
+            ))}
 
             {isAdminTable && <th>action</th>}
           </tr>
@@ -44,7 +40,6 @@ export default function Table({ data, isAdminTable }) {
           {/* row 1 */}
 
           {data.map((entry, i) => {
-           
             return (
               <tr key={i} className="">
                 <td>{i + 1}</td>
@@ -52,7 +47,7 @@ export default function Table({ data, isAdminTable }) {
                   {entry.name}
                 </td>
 
-                 {months.map((value) => (
+                {months.map((value) => (
                   <td key={value} className="border border-gray-200">
                     {entry?.month?.[value] ? (
                       <span className="badge badge-sm badge-success">100</span>
@@ -60,15 +55,10 @@ export default function Table({ data, isAdminTable }) {
                       <span> ❌ </span>
                     )}
                   </td>
-                ))} 
-
-                
-                  
-       
+                ))}
 
                 {isAdminTable && (
                   <td>
-                    
                     <Link to={`editmember/${entry._id}`}>
                       <button className="btn btn-warning btn-sm">update</button>
                     </Link>
