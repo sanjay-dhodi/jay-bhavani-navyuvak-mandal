@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 require("./config/mongoConnection");
+const helmet = require("helmet");
 
 const cookieParser = require("cookie-parser");
 
@@ -14,6 +15,8 @@ const allowedOrigins = [
   process.env.LOCAL_ORIGIN,
   process.env.PRODUCTION_ORIGIN,
 ];
+
+app.use(helmet());
 
 app.use(
   cors({
