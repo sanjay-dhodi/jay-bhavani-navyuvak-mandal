@@ -3,6 +3,7 @@ import { getAllRecord } from "../../services/recordService";
 import { Link } from "react-router";
 
 export default function Table({ data, isAdminTable }) {
+  data.map((value) => console.log(value.month));
   const months = [
     "sep",
     "oct",
@@ -48,11 +49,13 @@ export default function Table({ data, isAdminTable }) {
                 </td>
 
                 {months.map((value) => (
-                  <td key={value} className="border border-gray-200">
+                  <td key={value} className="border border-gray-200 ">
                     {entry?.month?.[value] ? (
-                      <span className="badge badge-sm badge-success">100</span>
+                      <span className="badge badge-sm badge-success">
+                        {value}
+                      </span>
                     ) : (
-                      <span> ❌ </span>
+                      <span className="badge badge-sm badge-danger"> ❌ </span>
                     )}
                   </td>
                 ))}
