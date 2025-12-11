@@ -3,7 +3,6 @@ import { getAllRecord } from "../../services/recordService";
 import { Link } from "react-router";
 
 export default function Table({ data, isAdminTable }) {
-  data.map((value) => console.log(value.month));
   const months = [
     "sep",
     "oct",
