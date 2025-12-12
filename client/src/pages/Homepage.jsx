@@ -53,9 +53,6 @@ export default function Homepage() {
     <>
       <div className=" w-1/2 flex items-center justify-between">
         <EntryForm onChange={handleChange} />
-        <Link to="/login">
-          <button className="btn btn-secondary ml-3 ">login</button>
-        </Link>
       </div>
 
       {loading ? (
