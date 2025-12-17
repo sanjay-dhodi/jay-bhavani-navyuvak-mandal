@@ -4,6 +4,7 @@ import EntryForm from "../components/EntryForm";
 import { useState } from "react";
 import { getAllRecord } from "../services/recordService";
 import { Link } from "react-router";
+import { Image } from "@imagekit/react";
 
 export default function Homepage() {
   const [list, setList] = useState([]);
@@ -40,12 +41,29 @@ export default function Homepage() {
 
   if (loading)
     return (
-      <div>
-        <h1 className="text-xl">loading......</h1>
-        <p className="text-lg">
-          please wait , first api load takes time bcoz we are on the free plan
-          ..
-        </p>
+      <div className="fixed inset-0 flex flex-col items-center justify-center bg-white z-50">
+        <div className="relative">
+          <Image
+            urlEndpoint={import.meta.env.VITE_IMAGEKIT_ENDPOINT}
+            src="jay bhavani/jay-bhavani-logo.png"
+            alt="Jay Bhavani logo"
+            className="sm:relative sm:top-6 h-23 w-23 sm:h-30  sm:w-30 md:h-35 md:w-35 "
+          />
+        </div>
+
+        <div className="mt-6 text-center">
+          <h1 className="text-2xl font-bold text-red-700 tracking-wide">
+            જય ભવાની નવયુવક મંડળ
+          </h1>
+
+          <p className="mt-2 text-lg text-orange-600 font-medium">
+            આપનું સ્વાગત કરે છે
+          </p>
+
+          <p className="mt-4 text-sm text-gray-600 animate-pulse">
+            કૃપા કરીને થોડી રાહ જુઓ...
+          </p>
+        </div>
       </div>
     );
 

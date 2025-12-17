@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 export default function LoginForm({ onsubmit, onchange, formdata, error }) {
   return (
-    <div className="card bg-white  border border-gray-200">
+    <div className="card bg-white  border mt-20 border-gray-200">
       <div className="card-body">
         <form className="flex flex-col gap-2" onSubmit={onsubmit}>
           {error && (
