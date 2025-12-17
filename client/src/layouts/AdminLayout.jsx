@@ -26,12 +26,6 @@ export default function AdminLayout() {
           </button>
         </div>
 
-        <div className="join mb-5">
-          <div className="btn join-item bg-black text-white"> Note </div>
-          <p className="join-item bg-amber-200 flex items-center justify-center px-2 ">
-            working on ui design & fixing issue
-          </p>
-        </div>
         <Outlet />
       </main>
     </>
