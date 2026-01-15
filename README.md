@@ -19,8 +19,8 @@ This approach caused several issues:
 To solve this problem, I built a simple MERN stack web application where:
 - An admin updates member payment records month by month
 - Member names and month-wise payment status are shown in a table
-- Paid members are marked with a badge
-- Unpaid members are marked with a cross icon
+- Paid members are marked with a month name badge in month column
+- Unpaid members are marked with a cross icon in month column
 - A single link can be shared with all members to view the latest status
 
 ## 🎯 Features
@@ -49,7 +49,31 @@ To solve this problem, I built a simple MERN stack web application where:
 **Authentication**
 - JWT with HttpOnly Cookies (basic implementation)
 
+**Tools**
+- Git & GitHub
+- Vs Code
+- Postman
+
+## 🎓 What I Learned
+- Full-stack MERN application development
+- React state management and `useEffect`
+- Array manipulation using `map` and `filter`
+- How to Work with React-router and Context Api
+- Frontend to backend API integration using Axios
+- JWT-based authentication using HttpOnly cookies
+- RESTful API design
+- MongoDB schema design
+- Deploying backend on Render and frontend on Netlify
+
+## ⚠️ Limitations
+
+- Project is built mainly for learning purposes
+- No advanced role-based access or security
+- UI is minimal and not design-focused
+- Can be improved further with better validation and UI
+
 ## 📱 Live Demo
+
 - **Frontend:** https://jaybhavani.netlify.app
 - **Backend API:** https://jay-bhavani-navyuvak-mandal.onrender.com
 
@@ -66,22 +90,6 @@ To solve this problem, I built a simple MERN stack web application where:
 - PATCH `/api/admin/record/update/:id` – Update record
 - DELETE `/api/admin/record/delete/:id` – Delete record
 
-## 🎓 What I Learned
-- Full-stack MERN application development
-- React state management and `useEffect`
-- Array manipulation using `map` and `filter`
-- Frontend to backend API integration using Axios
-- JWT-based authentication using HttpOnly cookies
-- RESTful API design
-- MongoDB schema design
-- Deploying backend on Render and frontend on Netlify
-
-## ⚠️ Limitations
-- Project is built mainly for learning purposes
-- No advanced role-based access or security
-- UI is minimal and not design-focused
-- Can be improved further with better validation and UI
-
 ## 🙌 Author
 **Sanjay Dhodi**  
-Aspiring MERN Stack Developer
+Aspiring Software Developer
